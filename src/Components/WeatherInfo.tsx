@@ -1,23 +1,29 @@
 import * as React from 'react';
 import { weatherResponse } from '../Models/models';
-import { useState } from 'react';
+
 
 interface IWeathrInfoProps {
     data?: weatherResponse
+    error:boolean
    
 }
 
-const WeathrInfo: React.FunctionComponent<IWeathrInfoProps> = ({data}) => {
 
-    const [unit,setUnit] = useState(false)
+const WeathrInfo: React.FunctionComponent<IWeathrInfoProps> = ({data,error}) => {
+
+    
 
     let temp = data?.main.temp;
-    // if(temp)temp = temp-273
+    
 
    
   return (
    
-       <div id="card" className="weather">
+       <>
+        {error ? (
+          <h3 style={{marginLeft:'3rem'}}>City not found</h3>
+        ) : data ?(
+         <div id="card" className="weather">
           <div className="details">
             <div className="temp">
               {temp&& Math.trunc(temp-273)}
@@ -43,8 +49,7 @@ const WeathrInfo: React.FunctionComponent<IWeathrInfoProps> = ({data}) => {
               style={{ width: "5", height: "5" }}
               src="visibility.svg"
             ></img>
-            <div className="visibility">Visibility {data?.visibility && <>{data.visibility / 1000}</>} km
-</div>
+            <div className="visibility">Visibility {data?.visibility && <>{data.visibility / 1000}</>} km</div>
             <img
               alt="windspeed1"
               className="windimg"
@@ -53,7 +58,12 @@ const WeathrInfo: React.FunctionComponent<IWeathrInfoProps> = ({data}) => {
             ></img>
             <div className="windspeed">Wind Speed {data?.wind.speed} km</div>
           </div>
-        </div>
+          </div>
+      
+        
+        ): null}
+
+        </>
      
   );
 };
