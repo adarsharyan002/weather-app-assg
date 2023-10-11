@@ -16,6 +16,8 @@ interface error {
 }
 const SearchBox: React.FunctionComponent<ISearchBoxProps> = (props) => {
 
+  console.log(process.env.REACT_APP_WEATHER_API_KEY)
+
     const [city, setCity] = useState("dehli")
     const [error,setError] = useState(false)
     const [weatherData,setData] = useState<weatherResponse>()
